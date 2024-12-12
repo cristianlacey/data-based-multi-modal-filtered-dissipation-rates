@@ -44,7 +44,7 @@ The DNN expects input features with corresponding column names as summarized in 
 |      $\overline{\dot{m}}_{\rm R}$         | filtered reference species source term                  |    ```FMDOTL```|
 |       $\overline{\rho}$        | filtered density        |    ```FRHO```   |
 
-**Note:** This particular DNN expects a ***normalized mixture fraction*** and ***normalized progress variable***. Before generating DNN predictions, ensure that all the input features incorporating the mixture fraction or generalized progress variable are first normalized appropriately by the maximum values in your domain of interest – that is, $Z_{max}$ and $\Lambda_{max}$, respectively. Finally, the filtered reference species source term $\overline{\dot{m}}\_{\rm R}$ corresponds to the reference species $Y_{\rm R} \equiv Y_{\rm H_2} + Y_{\rm H_2 O} + Y_{\rm CO} + Y_{\rm CO_2}$ and possesses dimensions of $ML^{-3}T^{-1}$.
+**Note:** This particular DNN expects a ***normalized mixture fraction*** and ***normalized progress variable***. Before generating DNN predictions, ensure that all the input features incorporating the mixture fraction or generalized progress variable are first normalized appropriately by the maximum values in your domain of interest – that is, $\widetilde{Z}\_{max}$ and $\widetilde{\Lambda}\_{max}$, respectively. Finally, the filtered reference species source term $\overline{\dot{m}}\_{\rm R}$ corresponds to the reference species $Y_{\rm R} \equiv Y_{\rm H_2} + Y_{\rm H_2 O} + Y_{\rm CO} + Y_{\rm CO_2}$ and possesses dimensions of $ML^{-3}T^{-1}$.
 
 ## Generating DNN Model Predictions
 
