@@ -36,7 +36,7 @@ The DNN expects input features with corresponding column names as summarized in 
 |     $\Theta_{res}\equiv \frac{\nabla \widetilde Z \cdot \nabla \widetilde \Lambda}{\lvert \nabla \widetilde Z \rvert \lvert \nabla \widetilde \Lambda \rvert}$          | resolved alignment        |    ```FALIGNMENT```   |
 |        $\lvert \widetilde S \rvert$       | magnitude of the filtered strain rate        |    ```FS```      |
 |        $\Delta_L \equiv V_{\rm stencil}^{1/3}$       | local filter size                 |    ```DELFILT``` |
-|       $\widetilde{D}  = \widetilde{\lambda/\rho c_p}$        | filtered molecular diffusivity        |    ```FDIFF```   |
+|       $\widetilde{D}$        | filtered molecular diffusivity (defined as the thermal dissusivity $\lambda/\rho c_p$)     |    ```FDIFF```   |
 |      $\overline{\dot{m}}_{\rm R}$         | filtered reference species source term                  |    ```FMDOTL```|
 |       $\overline{\rho}$        | filtered density        |    ```FRHO```   |
 
