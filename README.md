@@ -26,21 +26,19 @@ The DNN expects input features with corresponding column names as summarized in 
 
 | Input Feature | Description | Column Name   |
 | :---:         |    :----   |        :---:   |
-|   $\widetilde{\Lambda}$            | filtered progress variable                  |    ```FPROG```   |
-|     $\Lambda_v$          | progress variable subfilter variance        |    ```PROGV```   |
-|       $\lvert \nabla \widetilde \Lambda \rvert$        | magnitude of the filtered progress variable gradient                 |    ```dFPROG```  |
+|   $\widetilde{Z}$            | filtered mixture fraction                  |    ```FZ```   |
+|     $Z_v$          | mixture fraction subfilter variance        |    ```Z_VAR```   |
+|       $\lvert \nabla \widetilde Z \rvert$        | magnitude of the filtered mixture fraction gradient                 |    ```dFZ```  |
+|   $\widetilde{\Lambda}$            | filtered generalized progress variable                  |    ```FL```   |
+|     $\Lambda_v$          | generalized progress variable subfilter variance        |    ```L_VAR```   |
+|       $\lvert \nabla \widetilde \Lambda \rvert$        | magnitude of the filtered progress variable gradient                 |    ```dFL```  |
+|     $\Sigma_{Z \Lambda}$          | mixture fraction and generalized progress variable subfilter covariance        |    ```ZL_COVAR```   |
+|     $\Theta_{res}\equiv \frac{\nabla \widetilde Z \cdot \nabla \widetilde \Lambda}{\lvert \nabla \widetilde Z \rvert \lvert \nabla \widetilde \Lambda \rvert}$          | resolved alignment        |    ```FALIGNMENT```   |
 |        $\lvert \widetilde S \rvert$       | magnitude of the filtered strain rate        |    ```FS```      |
 |        $\Delta_L \equiv V_{\rm stencil}^{1/3}$       | local filter size                 |    ```DELFILT``` |
-|       $\widetilde{D}_{\Lambda}$        | filtered molecular diffusivity        |    ```FDIFF```   |
+|       $\widetilde{D}  = \widetilde{\lambda/\rho c_p}$        | filtered molecular diffusivity        |    ```FDIFF```   |
+|      $\overline{\dot{m}}_{\rm R}$         | filtered reference species source term                  |    ```FMDOTL```|
 |       $\overline{\rho}$        | filtered density        |    ```FRHO```   |
-|      $\overline{\dot{m}}_{\Lambda}$         | filtered progress variable source term                  |    ```FPROGSRC```|
-|      $\widetilde \chi_{\Lambda \Lambda}$         | filtered progress variable dissipation rate       |    ```FCHIPP```  |
-|      $\alpha$         | principal rate of strain (smallest)                 |    ```alpha```   |
-|       $\beta$        | principal rate of strain (intermediate)        |    ```beta```    |
-|      $\gamma$         | principal rate of strain (largest)                  |    ```gamma```   |
-|        $e_{\alpha}\cdot \nabla \widetilde{\Lambda}/\lvert \nabla \widetilde{\Lambda}\rvert$       | alignment of (smallest) principal rate of strain with progress variable gradient        |    ```alpha_align```   |
-|       $e_{\beta}\cdot \nabla \widetilde{\Lambda}/\lvert \nabla \widetilde{\Lambda}\rvert$        | alignment of (intermediate) principal rate of strain with progress variable gradient                  |    ```beta_align```    |
-|       $e_{\gamma}\cdot \nabla \widetilde{\Lambda}/\lvert \nabla \widetilde{\Lambda}\rvert$        | alignment of (largest) principal rate of strain with progress variable gradient        |    ```gamma_align```   |
 
 **Note:** This particular DNN expects a ***normalized mixture fraction*** and ***normalized progress variable***. Before generating DNN predictions, ensure that all the input features incorporating the mixture fraction or generalized progress variable are first normalized appropriately by the maximum values in your domain of interest – that is, $Z_{max}$ and $\Lambda_{max}$, respectively. Finally, the filtered reference species source term $\overline{\dot{m}}\_{\rm R}$ corresponds to the reference species $Y_{\rm R} \equiv Y_{\rm H_2} + Y_{\rm H_2 O} + Y_{\rm CO} + Y_{\rm CO_2}$ and possesses dimensions of $ML^{-3}T^{-1}$.
 
@@ -56,22 +54,20 @@ import tensorflow as tf
 # Define directories and column names
 test_data_path = 'test_data.csv'
 dnn_path = 'filt_multi_modal_dissrate_dnn'
-label_names =  ['g_' + str(i) for i in range(32)]
-feature_names = ['FPROG', \
-                 'PROGV', \
-                 'dFPROG', \
+label_names =  ['ln_FCHI_ZZ', 'inv_tanh_PFALIGNMENT', 'ln_FCHI_LL']
+feature_names = ['FZ', \
+                 'Z_VAR', \
+                 'dFZ', \
+                 'FL', \
+                 'L_VAR', \
+                 'dFL', \
+                 'ZL_COVAR', \
+                 'FALIGNMENT', \
                  'FS', \
                  'DELFILT', \
                  'FDIFF', \
-                 'FPROGSRC', \
-                 'FRHO', \
-                 'FCHIPP', \
-                 'alpha', \
-                 'beta', \
-                 'gamma', \
-                 'alpha_align', \
-                 'beta_align', \
-                 'gamma_align']
+                 'FMDOTL', \
+                 'FRHO']
 
 # Load testing dataset (example for CSV data)
 test_df = pd.read_csv(test_data_path)
