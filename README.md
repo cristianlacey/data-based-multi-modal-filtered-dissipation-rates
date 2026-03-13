@@ -19,7 +19,7 @@ $$\check{\Theta}\equiv\frac{\widetilde{\chi}\_{Z\Lambda}}{\left(\widetilde{\chi}
 
 These functional transformations may then be inverted to reconstruct the three filtered dissipation rate predictions. Details of the neural network architecture and training procedure are outlined in the following publication:
 
-- C. E. Lacey, B. S. Soriano, M. Rieth, M. E. Mueller, J. H. Chen, Data-based filtered dissipation rate modeling for multi-modal turbulent combustion: Evaluating _a priori_ model generalizability, Combustion Theory and Modelling (2024) submitted.
+- C. E. Lacey, B. S. Soriano, M. Rieth, M. E. Mueller, J. H. Chen, Data-based filtered dissipation rate modelling for multi-modal turbulent combustion: Evaluating _a priori_ model generalizability, Combustion Theory and Modelling (2026) 1–19. https://doi.org/10.1080/13647830.2026.2621012.
 
 We kindly ask that you cite the paper in any published work incorporating this DNN model.
 
